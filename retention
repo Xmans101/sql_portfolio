@@ -1,0 +1,29 @@
+/*
+calculate 1day retention
+*/
+
+with all_orders
+as
+(select order_no,
+        fiat_amount,
+        price,
+        coin_amount,
+        cryptocurrency,
+        counterparty,
+        to_char(order_date, 'dd.mm.yyyy') as order_day
+from    p2p12022024
+union all
+select  order_no,
+        fiat_amount,
+        price,
+        coin_amount,
+        cryptocurrency,
+        counterparty,
+        to_char(order_date, 'dd.mm.yyyy') as order_day
+from    p2p14022024)
+
+select  count(distinct case when order_day = '14.02.2024' then counterparty end)/count(distinct counterparty) as retention_info
+from    all_orders
+where   counterparty in (select counterparty from all_orders)
+        and order_day <= '14.02.2024'
+        and order_day >= '12.02.2024';
