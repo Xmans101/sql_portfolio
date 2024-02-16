@@ -1,0 +1,12 @@
+/*
+Write a query that calculates the difference between the highest salaries found in the marketing and engineering departments. Output just the absolute difference in salaries.
+from StrataScratch
+*/
+
+select     max(db_employee.salary) - min(db_employee.salary) as different,
+           db_dept.department
+from       db_employee
+inner join db_dept
+        on db_employee.id = db_dept.id
+where      db_dept.department in ('marketing', 'engineering')
+group by   db_dept.department;
