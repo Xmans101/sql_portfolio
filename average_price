@@ -1,0 +1,22 @@
+with all_orders
+as
+(select order_no,
+        fiat_amount,
+        price,
+        coin_amount,
+        cryptocurrency,
+        counterparty,
+        to_char(order_date, 'dd.mm.yyyy') as order_day
+from p2p12022024
+union all
+select  order_no,
+        fiat_amount,
+        price,
+        coin_amount,
+        cryptocurrency,
+        counterparty,
+        to_char(order_date, 'dd.mm.yyyy') as order_day
+from p2p14022024)
+
+select avg(price) as average_price
+from all_orders;
