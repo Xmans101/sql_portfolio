@@ -1,0 +1,2 @@
+select count(case when status = 'Completed' then counterparty end)/count(counterparty) * 100 as conversion
+from all_orders;
